@@ -48,10 +48,11 @@ exports.signupUserValidator = [
       return true;
     }),
   check("Phone")
-    .optional()
-    .isMobilePhone(["ar-SA"]) // تقبل فقط أرقام الهواتف السعودية
+    .notEmpty()
+    .withMessage("Phone Confirmation required")
+    .isMobilePhone("ar-EG") // يسمح فقط بالأرقام المصرية
     .withMessage(
-      "Invalid phone number. Only Saudi Arabian phone numbers are accepted."
+      "Invalid phone number. Only Egyptian phone numbers are accepted."
     ),
 
   check("passwordConfirm")
