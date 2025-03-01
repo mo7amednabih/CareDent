@@ -80,7 +80,6 @@ exports.CreateAdmin = asyncHandler(async (req, res, next) => {
     fullName,
     Email,
     password: hashedPassword,
-    profileImg: req.body.profileImg,
     Phone,
     role: "admin",
   });
