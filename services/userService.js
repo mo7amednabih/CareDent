@@ -200,25 +200,35 @@ exports.deleteLoggedUser = asyncHandler(async (req, res, next) => {
 });
 
 exports.updateUserPassword = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.user._id);
+  const user = await User.findById(req.user._id).select("+password");
 
-  // التحقق من وجود المستخدم
   if (!user) {
     return next(new ApiError("User not found", 404));
   }
 
   const { oldPassword, newPassword } = req.body;
 
-  // التحقق من صحة كلمة المرور القديمة
+  // التحقق من كلمة المرور القديمة
   const isMatch = await bcrypt.compare(oldPassword, user.password);
   if (!isMatch) {
     return next(new ApiError("Incorrect old password", 401));
   }
 
   // تحديث كلمة المرور
-  const saltRounds = parseInt(process.env.HASH_PASS, 10); // عدد الـ salt rounds من البيئة
+  const saltRounds = parseInt(process.env.HASH_PASS, 10) || 10;
   user.password = await bcrypt.hash(newPassword, saltRounds);
+
+  // تحديث passwordChangeAt
+  user.passwordChangeAt = Date.now();
+
   await user.save();
 
-  res.status(200).json({ msg: "Password updated successfully" });
+  // إنشاء توكن جديد بعد تحديث كلمة المرور
+  const token = createToken(user._id);
+
+  res.status(200).json({
+    msg: "Password updated successfully",
+    token,
+  });
 });
+
