@@ -82,9 +82,11 @@ exports.verifyEmailUser = asyncHandler(async (req, res, next) => {
     return next(new ApiError("Invalid verification code", 400));
   }
 
+  const date = Date.now();
   // Create the user in the database
   const user = await User.create({
     ...verificationRecord.tempUserData, // نسخ جميع البيانات من tempStudentData
+    passwordChangeAt: date,
   });
 
   // Clear verification record

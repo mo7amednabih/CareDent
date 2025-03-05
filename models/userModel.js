@@ -28,8 +28,8 @@ const userSchema = new mongoose.Schema(
     passwordResetVerified: Boolean,
     role: {
       type: String,
-      default: "user",
-      enum: ["user", "admin"],
+      required: true,
+      enum: ["user", "admin", "student"],
     },
     active: {
       type: Boolean,

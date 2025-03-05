@@ -214,7 +214,7 @@ exports.updateUserPassword = asyncHandler(async (req, res, next) => {
   }
 
   // تحديث كلمة المرور
-  const saltRounds = parseInt(process.env.HASH_PASS, 10) || 10;
+  const saltRounds = parseInt(process.env.HASH_PASS, 10);
   user.password = await bcrypt.hash(newPassword, saltRounds);
 
   // تحديث passwordChangeAt
@@ -230,4 +230,3 @@ exports.updateUserPassword = asyncHandler(async (req, res, next) => {
     token,
   });
 });
-
