@@ -14,6 +14,8 @@ const {
   deleteUserAndAdmin,
   CreateAdmin,
   updateUserPassword,
+  uploadUserImage,
+  resizeImage,
 } = require("../services/userService");
 
 const {
@@ -28,7 +30,13 @@ router.use(protect);
 
 router.get("/getMe", getLoggedUserData);
 
-router.put("/updateMe", updateUserValidator, updateUser);
+router.put(
+  "/updateMe",
+  updateUserValidator,
+  uploadUserImage,
+  resizeImage,
+  updateUser
+);
 
 router.put("/deactivateMe", deactvateLoggedUser);
 

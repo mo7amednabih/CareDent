@@ -11,9 +11,38 @@ const createToken = require("../utils/createToken");
 
 const User = require("../models/userModel");
 
+const { uploadSingleImage } = require("../middleware/uploadImageMiddleware");
+
 const { sanitizeUser, sanitizeUsers } = require("../utils/sanitizeData");
 
 const HandlerFactory = require("./handlerFactory");
+
+exports.uploadUserImage = uploadSingleImage("profileImg");
+
+//Image processing
+exports.resizeImage = asyncHandler(async (req, res, next) => {
+  if (req.file) {
+    const transformationOptions = {
+      width: 500,
+      height: 500,
+      crop: "fill",
+      gravity: "auto",
+      format: "auto",
+      quality: "auto",
+    };
+    // upload file to cloadnairy
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: "CareDent/users", // specify cloudinary folder
+      // resource_type : "video", // specify video resource type
+      transformation: transformationOptions, // specify transformation options
+    });
+
+    req.body.profileImg = result.secure_url;
+    // Return the url of the uploaded file
+    // return res.json({ url: result.secure_url });
+  }
+  next();
+});
 
 // @desc    Get user by ID
 // @route   GET /users/:id
@@ -104,6 +133,8 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
     req.user.id,
     {
       fullName: req.body.fullName,
+      healthRecord: req.body.healthRecord,
+      profileImg: req.body.profileImg,
     },
     {
       new: true,

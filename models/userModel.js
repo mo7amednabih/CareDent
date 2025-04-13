@@ -47,6 +47,7 @@ const userSchema = new mongoose.Schema(
     healthRecord: {
       type: String,
     },
+    profileImg: String,
   },
   { timestamps: true }
 );

@@ -5,6 +5,8 @@ exports.sanitizeUser = function (user) {
     Phone: user.Phone,
     Email: user.Email,
     role: user.role,
+    healthRecord: user.healthRecord,
+    profileImg: user.profileImg,
   };
 };
 
@@ -15,5 +17,7 @@ exports.sanitizeUsers = function (users) {
     Phone: user.Phone,
     Email: user.Email,
     role: user.role,
+    healthRecord: user.healthRecord,
+    profileImg: user.profileImg,
   }));
 };
