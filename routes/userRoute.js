@@ -16,6 +16,7 @@ const {
   updateUserPassword,
   uploadUserImage,
   resizeImage,
+  updateUserPhoto,
 } = require("../services/userService");
 
 const {
@@ -31,12 +32,14 @@ router.use(protect);
 router.get("/getMe", getLoggedUserData);
 
 router.put(
-  "/updateMe",
+  "/updatephoto",
   updateUserValidator,
   uploadUserImage,
   resizeImage,
-  updateUser
+  updateUserPhoto
 );
+
+router.put("/updateMe", updateUserValidator, updateUser);
 
 router.put("/deactivateMe", deactvateLoggedUser);
 

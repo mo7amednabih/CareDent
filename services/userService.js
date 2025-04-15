@@ -134,6 +134,23 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
     {
       fullName: req.body.fullName,
       healthRecord: req.body.healthRecord,
+      Phone: req.body.Phone,
+    },
+    {
+      new: true,
+    }
+  );
+
+  if (!user) {
+    return next(new ApiError(`No user for this id ${req.user.id}`, 404));
+  }
+  res.status(200).json({ data: sanitizeUser(user) });
+});
+
+exports.updateUserPhoto = asyncHandler(async (req, res, next) => {
+  const user = await User.findByIdAndUpdate(
+    req.user.id,
+    {
       profileImg: req.body.profileImg,
     },
     {
