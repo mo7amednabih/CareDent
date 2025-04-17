@@ -2,7 +2,7 @@ const express = require("express");
 const {
   createOrder,
   getMyOrders,
-  getAllOrders,
+  getAvailableOrders,
   acceptOrder,
 } = require("../services/orderService");
 
@@ -15,7 +15,7 @@ router.use(protect);
 router.get("/", allowedTo("user"), getMyOrders);
 router.post("/", allowedTo("user"), createOrderValidator, createOrder);
 
-router.get("/student/all", allowedTo("student"), getAllOrders);
+router.get("/student/available", allowedTo("student"), getAvailableOrders);
 router.post("/student/accept", allowedTo("student"), acceptOrder);
 
 module.exports = router;

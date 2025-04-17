@@ -36,13 +36,13 @@ exports.getMyOrders = asyncHandler(async (req, res, next) => {
   });
 });
 
-exports.getAllOrders = asyncHandler(async (req, res, next) => {
+exports.getAvailableOrders = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user._id);
 
   if (!user) {
     return next(new ApiError("User not found", 404));
   }
-  const orders = await Order.find().populate({
+  const orders = await Order.find({ student: { $exists: false } }).populate({
     path: "user",
     select: "fullName profileImg Email Phone healthRecord",
   });
