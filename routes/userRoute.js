@@ -27,6 +27,13 @@ const {
 const { protect, allowedTo } = require("../services/authService");
 const router = express.Router();
 
+const reviewsRoute = require("./reviewStudentRoute");
+
+// Post /products/sdjsdjshdsjsd/reviews
+// Get /products/sdjsdjshdsjsd/reviews
+// Get /products/sdjsdjshdsjsd/reviews/sdhjsdhjshdj
+router.use("/:studentId/reviews", reviewsRoute);
+
 router.use(protect);
 
 router.get("/getMe", getLoggedUserData);

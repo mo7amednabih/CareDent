@@ -23,10 +23,10 @@ const reviewStudentSchema = new mongoose.Schema(
       ref: "USer",
       required: [true, "Review must belong to student"],
     },
-    examination: {
+    appointment: {
       type: mongoose.Schema.ObjectId,
       ref: "orderDoctor",
-      required: [true, "Review must belong to examination"],
+      required: [true, "Review must belong to appointment"],
     },
   },
   { timestamps: true }

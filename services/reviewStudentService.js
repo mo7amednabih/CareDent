@@ -26,7 +26,7 @@ exports.setStudentIdAndUserIdToBody = (req, res, next) => {
 // exports.createReview = factory.createOne(ReviewStudentModel);
 exports.createReview = asyncHandler(async (req, res, next) => {
   const test = await ReviewStudentModel.findOne({
-    examination: req.body.examination,
+    appointment: req.body.appointment,
   });
   if (test) {
     return next(
@@ -35,9 +35,9 @@ exports.createReview = asyncHandler(async (req, res, next) => {
   }
 
   const review = await ReviewStudentModel.create(req.body);
-  const order = await Order.findByIdAndUpdate(
-    req.body.order,
-    { ratingDriver: true },
+  await Order.findByIdAndUpdate(
+    req.body.appointment,
+    { status: "Completed" },
     {
       new: true,
     }
