@@ -10,12 +10,10 @@ const { createOrderValidator } = require("../utils/validators/orderValidator");
 const { protect, allowedTo } = require("../services/authService");
 const router = express.Router();
 
-router.use(protect, allowedTo("user"));
+router.use(protect);
+router.get("/", allowedTo("user"), getMyOrders);
+router.post("/", allowedTo("user"), createOrderValidator, createOrder);
 
-router.get("/", getMyOrders);
-router.post("/", createOrderValidator, createOrder);
-
-router.use(protect, allowedTo("student"));
-router.get("/all", getAllOrders);
+router.get("/all", allowedTo("student"), getAllOrders);
 
 module.exports = router;
