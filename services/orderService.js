@@ -76,3 +76,17 @@ exports.acceptOrder = asyncHandler(async (req, res, next) => {
     msg: "the appointment has been successfully scheduled",
   });
 });
+
+exports.getMyOrdersStudent = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+
+  if (!user) {
+    return next(new ApiError("User not found", 404));
+  }
+  const orders = await Order.find({ student: user._id });
+
+  res.status(200).json({
+    count: orders.length,
+    orders,
+  });
+});

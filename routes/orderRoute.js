@@ -4,6 +4,7 @@ const {
   getMyOrders,
   getAvailableOrders,
   acceptOrder,
+  getMyOrdersStudent,
 } = require("../services/orderService");
 
 const { createOrderValidator } = require("../utils/validators/orderValidator");
@@ -17,5 +18,6 @@ router.post("/", allowedTo("user"), createOrderValidator, createOrder);
 
 router.get("/student/available", allowedTo("student"), getAvailableOrders);
 router.post("/student/accept", allowedTo("student"), acceptOrder);
+router.get("/student/myOrder", allowedTo("student"), getMyOrdersStudent);
 
 module.exports = router;
