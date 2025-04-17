@@ -44,11 +44,35 @@ exports.getAllOrders = asyncHandler(async (req, res, next) => {
   }
   const orders = await Order.find().populate({
     path: "user",
-    select: "fullName profileImg Email Phone",
+    select: "fullName profileImg Email Phone healthRecord",
   });
 
   res.status(200).json({
     count: orders.length,
     orders,
+  });
+});
+
+exports.acceptOrder = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+
+  if (!user) {
+    return next(new ApiError("User not found", 404));
+  }
+
+  const test = await Order.findById(req.body.appointment);
+  if (test.student) {
+    res.status(400).json({ msg: "this appointment is already toke" });
+  }
+
+  const order = await Order.findByIdAndUpdate(
+    req.body.appointment,
+    { student: user._id, date: req.body.date, time: req.body.time },
+    { new: true }
+  );
+
+  res.status(200).json({
+    order,
+    msg: "the appointment has been successfully scheduled",
   });
 });
