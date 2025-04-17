@@ -35,3 +35,20 @@ exports.getMyOrders = asyncHandler(async (req, res, next) => {
     orders,
   });
 });
+
+exports.getAllOrders = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+
+  if (!user) {
+    return next(new ApiError("User not found", 404));
+  }
+  const orders = await Order.find().populate({
+    path: "user",
+    select: "fullName profileImg Email Phone",
+  });
+
+  res.status(200).json({
+    count: orders.length,
+    orders,
+  });
+});

@@ -26,30 +26,17 @@ const orderDoctorSchema = new mongoose.Schema(
       type: String,
       default: "upComing",
     },
-    // doctor: {
-    //   type: mongoose.Schema.ObjectId,
-    //   ref: "Doctor",
-    // },
-    // day: {
-    //   type: {
-    //     type: String,
-    //     enum: [
-    //       "Sunday",
-    //       "Monday",
-    //       "Tuesday",
-    //       "Wednesday",
-    //       "Thursday",
-    //       "Friday",
-    //       "Saturday",
-    //     ],
-    //   },
-    //   time: {
-    //     startTime: { type: String },
-    //   },
-    //   date: {
-    //     type: Date,
-    //   },
-    // },
+    student: {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+    },
+
+    time: {
+      type: String,
+    },
+    date: {
+      type: Date,
+    },
   },
   { timestamps: true }
 );

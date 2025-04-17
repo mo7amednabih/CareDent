@@ -48,8 +48,17 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
     profileImg: String,
+    ratingsAverage: {
+      type: Number,
+      min: [1, "Rating must be above or equal to 1.0"],
+      max: [5, "Rating must be below or equal to 5.0"],
+    },
+    ratingsQuantity: {
+      type: Number,
+      default: 0,
+    },
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
 //@ dec remove "password" &"__v" from the output
@@ -59,6 +68,12 @@ userSchema.set("toJSON", {
     delete ret.__v; // remove "__v" from the output
     return ret;
   },
+});
+
+userSchema.virtual("reviews", {
+  ref: "ReviewStudent",
+  foreignField: "student",
+  localField: "_id",
 });
 
 // userSchema.pre("save", async function (next) {
