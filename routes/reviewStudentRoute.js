@@ -7,7 +7,7 @@ const {
   updateReview,
   deleteReview,
   createFilterObj,
-  setDriverIdAndUserIdToBody,
+  setStudentIdAndUserIdToBody,
 } = require("../services/reviewStudentService");
 
 // const {
@@ -24,7 +24,7 @@ router
   .post(
     authService.protect,
     authService.allowedTo("user"),
-    setDriverIdAndUserIdToBody,
+    setStudentIdAndUserIdToBody,
     // createReviewsValidator,
     createReview
   )
