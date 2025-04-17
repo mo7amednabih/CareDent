@@ -15,7 +15,7 @@ router.use(protect);
 router.get("/", allowedTo("user"), getMyOrders);
 router.post("/", allowedTo("user"), createOrderValidator, createOrder);
 
-router.get("/all", allowedTo("student"), getAllOrders);
-router.post("/accept", allowedTo("student"), acceptOrder);
+router.get("/student/all", allowedTo("student"), getAllOrders);
+router.post("/student/accept", allowedTo("student"), acceptOrder);
 
 module.exports = router;
