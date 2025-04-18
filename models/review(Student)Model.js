@@ -20,7 +20,7 @@ const reviewStudentSchema = new mongoose.Schema(
     // Parent reference (one to many) => لما يكون عدد ال شايلد كبير
     student: {
       type: mongoose.Schema.ObjectId,
-      ref: "USer",
+      ref: "User",
       required: [true, "Review must belong to student"],
     },
     appointment: {
