@@ -114,8 +114,21 @@ exports.login = asyncHandler(async (req, res, next) => {
 
   //3)Generation token
   const token = createToken(user._id);
+
+  // 4) Return selected user data
+  const userData = {
+    _id: user._id,
+    fullName: user.fullName,
+    Phone: user.Phone,
+    Email: user.Email,
+    role: user.role,
+    healthRecord: user.healthRecord,
+    profileImg: user.profileImg,
+    createReport: user.createReport,
+  };
+
   return res.status(201).json({
-    data: sanitizeUser(user),
+    data: userData,
     token,
   });
 });

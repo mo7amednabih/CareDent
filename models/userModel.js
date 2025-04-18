@@ -57,6 +57,10 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    createReport: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
