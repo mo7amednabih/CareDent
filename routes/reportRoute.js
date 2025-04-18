@@ -18,7 +18,13 @@ const {
 
 const router = express.Router();
 
-router.route("/myreport").get(getMyreport);
+router
+  .route("/myreport")
+  .get(
+    authService.protect,
+    authService.allowedTo("user", "student"),
+    getMyreport
+  );
 
 router
   .route("/")
