@@ -31,7 +31,7 @@ exports.createReport = asyncHandler(async (req, res, next) => {
 });
 
 exports.getMyreport = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.user._id);
+  const user = await User.findById(req.user.id);
 
   if (!user) {
     return next(new ApiError("User not found", 404));
