@@ -5,6 +5,7 @@ const {
   getAvailableOrders,
   acceptOrder,
   getMyOrdersStudent,
+  deleteOrder
 } = require("../services/orderService");
 
 const { createOrderValidator } = require("../utils/validators/orderValidator");
@@ -15,6 +16,8 @@ const router = express.Router();
 router.use(protect);
 router.get("/", allowedTo("user"), getMyOrders);
 router.post("/", allowedTo("user"), createOrderValidator, createOrder);
+router.delete("/:id", allowedTo("user"),  deleteOrder);
+
 
 router.get("/student/available", allowedTo("student"), getAvailableOrders);
 router.post("/student/accept", allowedTo("student"), acceptOrder);

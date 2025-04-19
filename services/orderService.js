@@ -97,3 +97,37 @@ exports.getMyOrdersStudent = asyncHandler(async (req, res, next) => {
   });
 });
 
+exports.deleteOrder = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+
+  if (!user) {
+    return next(new ApiError("User not found", 404));
+  }
+
+  const test = await Order.findById(req.params.appointment);
+
+  if (!test) {
+    return next(new ApiError("Appointment not found", 404));
+  }
+
+  // تأكد إن اليوزر هو صاحب الطلب
+  if (test.user.toString() !== req.user._id.toString()) {
+    return next(
+      new ApiError("You are not authorized to delete this appointment", 403)
+    );
+  }
+
+  // تأكد إن الحجز مش محجوز من قبل طالب
+  if (test.student) {
+    return res.status(400).json({
+      msg: "This appointment is already taken, can't delete",
+    });
+  }
+
+  const order = await Order.findByIdAndDelete(req.params.appointment);
+
+  res.status(200).json({
+    order,
+    msg: "The appointment has been successfully deleted",
+  });
+});
