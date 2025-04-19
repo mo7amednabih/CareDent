@@ -36,7 +36,7 @@ exports.getMyreport = asyncHandler(async (req, res, next) => {
   if (!user) {
     return next(new ApiError("User not found", 404));
   }
-  const report = await Report.findOne({
+  const report = await Report.find({
     $or: [{ student: req.user.id }, { user: req.user.id }],
   });
 
