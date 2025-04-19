@@ -24,7 +24,7 @@ const orderDoctorSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      default: "upComing",
+      default: "Upcoming",
     },
     student: {
       type: mongoose.Schema.ObjectId,

@@ -15,7 +15,7 @@ exports.createReport = asyncHandler(async (req, res, next) => {
       )
     );
   }
-
+  
   const existingReport = await Report.findOne({
     $or: [{ student: req.user.id }, { user: req.user.id }],
   });
