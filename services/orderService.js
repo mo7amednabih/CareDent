@@ -127,7 +127,6 @@ exports.deleteOrder = asyncHandler(async (req, res, next) => {
   const order = await Order.findByIdAndDelete(req.params.appointment);
 
   res.status(200).json({
-    order,
     msg: "The appointment has been successfully deleted",
   });
 });
