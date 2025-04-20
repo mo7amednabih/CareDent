@@ -104,7 +104,7 @@ exports.deleteOrder = asyncHandler(async (req, res, next) => {
     return next(new ApiError("User not found", 404));
   }
 
-  const test = await Order.findById(req.params.appointment);
+  const test = await Order.findById(req.params.id);
 
   if (!test) {
     return next(new ApiError("Appointment not found", 404));
@@ -124,7 +124,7 @@ exports.deleteOrder = asyncHandler(async (req, res, next) => {
     });
   }
 
-  const order = await Order.findByIdAndDelete(req.params.appointment);
+  const order = await Order.findByIdAndDelete(req.params.id);
 
   res.status(200).json({
     msg: "The appointment has been successfully deleted",
