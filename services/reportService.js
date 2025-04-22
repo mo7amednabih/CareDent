@@ -84,12 +84,14 @@ exports.deleteReport = asyncHandler(async (req, res, next) => {
   if (!document) {
     return next(new ApiError(`No document for this id ${id}`, 404));
   }
-  const user = await User.findById({
-    $or: [{ _id: document.student }, { _id: document.user }],
+  const user = await User.findOne({
+    _id: { $in: [document.student, document.user] },
   });
 
-  user.createReport = false;
-  user.save();
+  if (user) {
+    user.createReport = false;
+    await user.save();
+  }
   res.status(204).json({
     user,
   });
