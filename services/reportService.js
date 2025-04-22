@@ -90,5 +90,7 @@ exports.deleteReport = asyncHandler(async (req, res, next) => {
   }
   user.createReport = false;
   user.save();
-  res.status(204).send();
+  res.status(204).json({
+    user,
+  });
 });
