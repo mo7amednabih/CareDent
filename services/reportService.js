@@ -15,7 +15,7 @@ exports.createReport = asyncHandler(async (req, res, next) => {
       )
     );
   }
-  
+
   const existingReport = await Report.findOne({
     $or: [{ student: req.user.id }, { user: req.user.id }],
   });
@@ -77,4 +77,18 @@ exports.getReports = asyncHandler(async (req, res, next) => {
 exports.getReport = factory.getOne(Report);
 
 exports.updateReport = factory.updateOne(Report);
-exports.deleteReport = factory.deleteOne(Report);
+exports.deleteReport = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    return next(new ApiError(`No user found with id ${req.user.id}`, 404));
+  }
+  const { id } = req.params;
+  const document = await Report.findByIdAndDelete(id);
+
+  if (!document) {
+    return next(new ApiError(`No document for this id ${id}`, 404));
+  }
+  user.createReport = false;
+  user.save();
+  res.status(204).send();
+});
