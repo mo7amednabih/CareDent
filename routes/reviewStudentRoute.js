@@ -30,7 +30,7 @@ router
     createReview
   )
   .get(createFilterObj, getReviews);
-router.route("specificdoctor/:id").get(
+router.route("/specificdoctor/:id").get(
   // getReviewValidator,
   getReviewsForSpecificDoctor
 );
