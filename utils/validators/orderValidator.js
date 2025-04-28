@@ -20,7 +20,7 @@ exports.createOrderValidator = [
     const existingOrder = await Order.findOne({
       user: req.user._id,
       type: value,
-      status: "upComing",
+      status: "Upcoming",
     });
 
     if (existingOrder) {
