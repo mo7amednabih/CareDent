@@ -13,7 +13,17 @@ exports.createFilterObj = (req, res, next) => {
   req.filterObj = filterObject;
   next();
 };
-exports.getReviews = factory.getAll(ReviewStudentModel);
+
+exports.getReviews = asyncHandler(async (req, res, next) => {
+  const reviews = await ReviewStudentModel.find()
+    .populate("user", "fullName profileImg")
+    .populate("student", "fullName profileImg");
+
+  res.status(200).json({
+    reviews,
+  });
+});
+
 exports.getReview = factory.getOne(ReviewStudentModel);
 
 //Nested route
