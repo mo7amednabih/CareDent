@@ -70,7 +70,10 @@ reviewStudentSchema.post("remove", async function () {
 });
 
 reviewStudentSchema.pre(/^find/, function (next) {
-  this.populate({ path: "user", select: "fullName" });
+  this.populate({ path: "user", select: "fullName profileImg" }).populate({
+    path: "student",
+    select: "fullName profileImg",
+  });
   next();
 });
 
