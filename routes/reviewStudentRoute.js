@@ -3,6 +3,7 @@ const authService = require("../services/authService");
 const {
   createReview,
   getReviews,
+  getReviewsForSpecificDoctor,
   getReview,
   updateReview,
   deleteReview,
@@ -29,6 +30,11 @@ router
     createReview
   )
   .get(createFilterObj, getReviews);
+router.route("specificdoctor/:id").get(
+  // getReviewValidator,
+  getReviewsForSpecificDoctor
+);
+
 router
   .route("/:id")
   .get(

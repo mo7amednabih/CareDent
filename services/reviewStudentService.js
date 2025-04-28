@@ -27,6 +27,20 @@ exports.getReviews = asyncHandler(async (req, res, next) => {
   });
 });
 
+exports.getReviewsForSpecificDoctor = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+  const reviews = await ReviewStudentModel.find({ student: id });
+  // // .populate(
+  // //   "user",
+  // //   "fullName profileImg"
+  // // );
+  // .populate("user", "fullName profileImg");
+
+  res.status(200).json({
+    reviews,
+  });
+});
+
 exports.getReview = factory.getOne(ReviewStudentModel);
 
 //Nested route
