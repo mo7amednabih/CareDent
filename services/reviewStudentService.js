@@ -15,9 +15,11 @@ exports.createFilterObj = (req, res, next) => {
 };
 
 exports.getReviews = asyncHandler(async (req, res, next) => {
-  const reviews = await ReviewStudentModel.find()
-    .populate("user", "fullName profileImg")
-    .populate("student", "fullName profileImg");
+  const reviews = await ReviewStudentModel.find().populate(
+    "user",
+    "fullName profileImg"
+  );
+  // .populate("student", "fullName profileImg");
 
   res.status(200).json({
     reviews,
