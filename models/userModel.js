@@ -47,6 +47,12 @@ const userSchema = new mongoose.Schema(
     healthRecord: {
       type: String,
     },
+    skills:{
+      type: String,
+    },
+    year:{
+      type: String,
+    },
     profileImg: String,
     ratingsAverage: {
       type: Number,

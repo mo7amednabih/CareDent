@@ -135,6 +135,8 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
       fullName: req.body.fullName,
       healthRecord: req.body.healthRecord,
       Phone: req.body.Phone,
+      skills: req.body.skills,
+      year: req.body.year,
     },
     {
       new: true,

@@ -125,6 +125,8 @@ exports.login = asyncHandler(async (req, res, next) => {
     healthRecord: user.healthRecord,
     profileImg: user.profileImg,
     createReport: user.createReport,
+    year: user.year,
+    skills: user.skills,
   };
 
   return res.status(201).json({
