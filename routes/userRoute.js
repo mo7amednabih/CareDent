@@ -40,7 +40,6 @@ router.get("/getMe", getLoggedUserData);
 
 router.put(
   "/updatephoto",
-  updateUserValidator,
   uploadUserImage,
   resizeImage,
   updateUserPhoto
